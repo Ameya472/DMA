@@ -1,0 +1,7 @@
+Exp 4 - Association Rule Mining (Apriori)
+
+Load dataset
+go to associate tab 
+then click on choose then choose apriori
+STaRT
+KHTM

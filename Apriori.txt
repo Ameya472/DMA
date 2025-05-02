@@ -1,0 +1,42 @@
+Install and launch Weka.
+
+Choose "Explorer" from the startup window.
+
+✅ Step 2: Load the Dataset
+Click on the “Preprocess” tab.
+
+Click "Open file…".
+
+Load a dataset suitable for association rules (e.g., supermarket.arff).
+
+
+✅ Step 3: Explore the Data
+You’ll see items (like bread, milk, etc.) as binary attributes (yes/no or 0/1).
+
+
+✅ Step 4: Select Association Rule Mining
+Click the “Associate” tab.
+
+From the algorithm list, choose:
+
+Associate → Choose → weka.associations.Apriori
+
+✅ Step 5: Configure Apriori (Optional but Recommended)
+Click on the name Apriori (after choosing it) to adjust parameters:
+
+LowerBoundMinSupport: Set the minimum support threshold (e.g., 0.1).
+
+MinMetric: Minimum confidence (default is 0.9).
+
+NumRules: How many top rules you want to see (default is 10).
+
+
+
+✅ Step 6: Run Apriori Algorithm
+Click Start.
+
+Weka will generate a list of association rules in the Result list window.
+
+
+
+

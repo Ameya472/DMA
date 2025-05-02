@@ -1,0 +1,16 @@
+
+Exp 3 Pre processing in Weka
+
+Open File
+Select Windows C SSD 
+Program Files (x86)
+Weka
+Load any data u want
+
+Weka Unsupervised Filter
+
+1. Rename (in attributeindices , write number "1, 2, 3" whatever u want)
+2. Remove (write find and replace)
+3. Reorder (write last- first in attributes)
+4. Handle Missing Values
+5. Remove Duplicates

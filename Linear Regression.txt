@@ -1,0 +1,27 @@
+Open Weka GUI Chooser
+
+Click on Explorer
+
+🔹 Step 2: Load a Numeric Dataset
+Click Open file...
+
+Use a dataset with a numeric target variable.
+
+Examples:
+
+cpu.arff (in Weka’s data folder)
+
+Make sure the target attribute (last column) is numeric.
+
+🔹 Step 3: Choose the Regression Algorithm
+Go to the Classify tab.
+
+Click Choose → functions → LinearRegression
+
+This uses ordinary least squares (OLS) to model the relationship between independent variables and the numeric dependent variable.
+
+🔹 Step 4: Set the Test Option
+Select: Cross-validation (10 folds) 
+
+🔹 Step 5: Run the Model
+Click Start

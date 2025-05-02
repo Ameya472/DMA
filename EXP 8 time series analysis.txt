@@ -1,0 +1,27 @@
+EXP 8 time series analysis
+
+START WEKA
+
+topleft me tools me jao then package manager
+PACKAGE SEARCH me likho - Time Series Forecasting
+if installed then fuck off , if not then install
+CLOSE
+
+then go on workbench
+open file
+data
+airline data lo
+
+then choose time series forecasting from UPAR WALA TAB
+Choose me jao
+time series me HoltWinters me click karo
+
+START CLICK KARO
+output and baaju me graph
+periodicity detect automatically
+unit to forecasting = 1
+
+
+
+
+

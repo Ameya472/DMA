@@ -1,0 +1,29 @@
+🔹 Step 1: Open Weka
+Launch Weka GUI Chooser.
+
+Click on Explorer.
+
+🔹 Step 2: Load the Dataset
+Click "Open file..." under the Preprocess tab.
+
+ weather.nominal.arff 
+
+Attributes: outlook, temperature, humidity, windy, play (class)
+
+Class to predict: play
+
+🔹 Step 3: Select Decision Tree Classifier
+Click on the "Classify" tab.
+
+Click "Choose" → Expand trees → Select:
+
+trees → J48
+J48 is Weka’s implementation of the C4.5 algorithm (a popular decision tree model).
+
+🔹 Step 4: Configure Evaluation Method
+Choose how to test the model:
+
+Select: 10-fold cross-validation
+
+🔹 Step 5: Run the Model
+Click “Start” to train the model.

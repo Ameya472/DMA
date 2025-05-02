@@ -1,0 +1,42 @@
+Open Weka.
+
+Click on Explorer.
+
+✅ Step 2: Load a Dataset
+Go to the "Preprocess" tab.
+
+Click "Open File..." and load a classification dataset.
+
+Use iris.arff (included in Weka’s data/ folder) or I can provide you a custom dataset.
+
+
+✅ Step 3: Understand the Dataset
+Last attribute (class) should be your target variable (the class label to predict).
+
+
+✅ Step 4: Choose Naive Bayes Classifier
+Click on the "Classify" tab.
+
+Under "Classifier", click "Choose" →
+Navigate to:
+
+bayes → NaiveBayes
+
+✅ Step 5: Configure Evaluation Method
+Choose an evaluation method:
+
+Use training set: Test on the same data (not recommended for real scenarios).
+
+10-fold cross-validation (default and recommended).
+
+Percentage split (e.g., 70% train / 30% test).
+
+Choose "10-fold cross-validation".
+
+✅ Step 6: Run the Model
+Click “Start”.
+
+
+✅ Step 7: Interpret Results
+🔹 Key Outputs:
+Correctly Classified Instances: e.g., 96%

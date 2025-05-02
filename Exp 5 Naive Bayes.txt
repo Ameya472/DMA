@@ -1,0 +1,7 @@
+Exp 5 Naive Bayes
+
+Use Weather Nominal DATASET
+
+go to classifier
+CHOOSE ->Classifier ->Bayes -> Naive BAYES
+Choose any attribute from nom(play or whatever u want)

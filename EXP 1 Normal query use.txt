@@ -1,0 +1,3 @@
+EXP 1
+TPCHSF10
+table me order use kare

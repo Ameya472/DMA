@@ -1,0 +1,200 @@
+1. Get all orders placed on a specific date
+
+SELECT *
+FROM ORDERS
+WHERE O_ORDERDATE = '2024-01-01';
+
+
+2. Find the top 5 most expensive orders
+SELECT *
+FROM ORDERS
+ORDER BY O_TOTALPRICE DESC
+LIMIT 5;
+
+
+3. Count the number of orders per order status
+
+SELECT O_ORDERSTATUS, COUNT(*) AS order_count
+FROM ORDERS
+GROUP BY O_ORDERSTATUS;
+
+
+4. Average order price per order priority
+
+SELECT O_ORDERPRIORITY, AVG(O_TOTALPRICE) AS avg_price
+FROM ORDERS
+GROUP BY O_ORDERPRIORITY;
+
+
+5. Get orders where the comment mentions 'urgent'
+
+SELECT *
+FROM ORDERS
+WHERE LOWER(O_COMMENT) LIKE '%urgent%';
+
+
+6. Total sales per day (useful for trending)
+
+SELECT O_ORDERDATE, SUM(O_TOTALPRICE) AS daily_sales
+FROM ORDERS
+GROUP BY O_ORDERDATE
+ORDER BY O_ORDERDATE;
+
+
+8. Retrieve all orders handled by a specific clerk
+
+SELECT *
+FROM ORDERS
+WHERE O_CLERK = 'Clerk#000000121';
+
+
+9. List order priorities in order of frequency
+
+SELECT O_ORDERPRIORITY, COUNT(*) AS count
+FROM ORDERS
+GROUP BY O_ORDERPRIORITY
+ORDER BY count DESC;
+
+
+10. Get all high priority orders (assuming '1-URGENT', '2-HIGH' are priority labels)
+sql
+Copy
+Edit
+SELECT *
+FROM ORDERS
+WHERE O_ORDERPRIORITY IN ('1-URGENT', '2-HIGH');
+
+
+7. Find customers with more than 3 orders
+
+SELECT O_CUSTKEY, COUNT(*) AS order_count
+FROM ORDERS
+GROUP BY O_CUSTKEY
+HAVING COUNT(*) > 3;
+
+20. Monthly total sales
+
+SELECT DATE_TRUNC('MONTH', O_ORDERDATE) AS month, 
+       SUM(O_TOTALPRICE) AS total_salesFROM ORDERSGROUP BY monthORDER BY month;
+
+21. Most frequent comment keyword (basic frequency)
+
+SELECT SPLIT_PART(O_COMMENT, ' ', 1) AS first_word, COUNT(*) AS frequencyFROM ORDERSGROUP BY first_wordORDER BY frequency DESC
+LIMIT 5;
+
+22. List orders where ship priority is 0 (low priority?)
+
+SELECT *FROM ORDERSWHERE O_SHIPPRIORITY = 0;
+
+23. Top 3 customers by total order value
+
+SELECT O_CUSTKEY, SUM(O_TOTALPRICE) AS total_valueFROM ORDERSGROUP BY O_CUSTKEYORDER BY total_value DESC
+LIMIT 3;
+
+24. Find duplicate orders by same customer on same date
+
+SELECT O_CUSTKEY, O_ORDERDATE, COUNT(*) AS order_countFROM ORDERSGROUP BY O_CUSTKEY, O_ORDERDATEHAVING COUNT(*) > 1;
+
+25. Get average number of orders per day
+
+SELECT COUNT(*) * 1.0 / COUNT(DISTINCT O_ORDERDATE) AS avg_orders_per_dayFROM ORDERS;
+
+26. Get most common ship priority
+
+SELECT O_SHIPPRIORITY, COUNT(*) AS freqFROM ORDERSGROUP BY O_SHIPPRIORITYORDER BY freq DESC
+LIMIT 1;
+
+27. Find comments longer than 50 characters
+
+SELECT *FROM ORDERSWHERE LENGTH(O_COMMENT) > 50;
+
+28. Find the clerk handling the highest total order value
+
+SELECT O_CLERKFROM ORDERSGROUP BY O_CLERKORDER BY SUM(O_TOTALPRICE) DESC
+LIMIT 1;
+
+29. Compare total price by status
+
+SELECT O_ORDERSTATUS, 
+       COUNT(*) AS num_orders,
+       SUM(O_TOTALPRICE) AS total_valueFROM ORDERSGROUP BY O_ORDERSTATUS;
+
+
+30. Find orders placed on weekends
+
+SELECT *FROM ORDERSWHERE DAYOFWEEK(O_ORDERDATE) IN (6, 7); -- 6=Saturday, 7=Sunday
+
+30. Find orders placed on weekends
+
+
+SELECT *FROM ORDERSWHERE DAYOFWEEK(O_ORDERDATE) IN (6, 7); -- 6=Saturday, 7=Sunday
+
+31. Find the average order value for each day of the week
+
+
+SELECT DAYOFWEEK(O_ORDERDATE) AS weekday, 
+       AVG(O_TOTALPRICE) AS avg_order_valueFROM ORDERSGROUP BY weekdayORDER BY weekday;
+
+32. Find orders where the order comment is empty or NULL
+
+
+SELECT *FROM ORDERSWHERE O_COMMENT IS NULL OR TRIM(O_COMMENT) = '';
+
+33. Detect orders with negative total price (data quality check)
+
+
+SELECT *FROM ORDERSWHERE O_TOTALPRICE < 0;
+
+34. List all orders and show whether they are ‘High Value’ (above 100,000) or not
+
+
+SELECT *,
+       CASE 
+           WHEN O_TOTALPRICE > 100000 THEN 'High Value'
+           ELSE 'Normal'
+       END AS order_categoryFROM ORDERS;
+
+35. Show cumulative sales per customer (running total)
+
+
+SELECT O_CUSTKEY, 
+       O_ORDERDATE,
+       O_TOTALPRICE,
+       SUM(O_TOTALPRICE) OVER (PARTITION BY O_CUSTKEY ORDER BY O_ORDERDATE) AS cumulative_spendFROM ORDERS;
+
+36. Find the number of orders each clerk processed per month
+
+
+SELECT O_CLERK,
+       DATE_TRUNC('MONTH', O_ORDERDATE) AS order_month,
+       COUNT(*) AS orders_handledFROM ORDERSGROUP BY O_CLERK, order_monthORDER BY O_CLERK, order_month;
+
+37. Get top 2 orders by total price per customer
+
+
+SELECT *FROM (
+    SELECT *,
+           ROW_NUMBER() OVER (PARTITION BY O_CUSTKEY ORDER BY O_TOTALPRICE DESC) AS rn
+    FROM ORDERS
+)WHERE rn <= 2;
+
+38. Flag orders placed more than 5 years ago
+
+
+SELECT *,
+       CASE 
+           WHEN O_ORDERDATE < DATEADD(YEAR, -5, CURRENT_DATE) THEN 'Old'
+           ELSE 'Recent'
+       END AS order_age_flagFROM ORDERS;
+
+39. Show customers who ordered both '1-URGENT' and '5-LOW' priority orders
+
+
+SELECT O_CUSTKEYFROM ORDERSWHERE O_ORDERPRIORITY IN ('1-URGENT', '5-LOW')GROUP BY O_CUSTKEYHAVING COUNT(DISTINCT O_ORDERPRIORITY) = 2;
+
+40. Count how many orders contain a specific keyword (e.g., ‘delay’) in the comment
+
+
+SELECT COUNT(*) AS delay_mentionsFROM ORDERSWHERE LOWER(O_COMMENT) LIKE '%delay%';
+
+

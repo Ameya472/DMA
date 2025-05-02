@@ -1,0 +1,12 @@
+Exp 7 Regression
+
+DATASET cpu.arff
+
+Classify me jao
+Choose me  
+classifeoers me functions me jao
+Linear REgressiion
+Click Cross Validation and set on 10
+
+attribute select karlo NUM ( whatever)
+START

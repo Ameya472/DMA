@@ -1,0 +1,10 @@
+Exp 6 Decision Tree
+
+DATASET Weather Nominal
+Classify me jao
+TREEs me jao
+CLICK J48 
+Start 
+
+we can choose our attribute whatever we want
+amd then right click on visualise tree
