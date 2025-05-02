@@ -1,0 +1,114 @@
+1. Roll-up total sales by year
+
+
+SELECT YEAR(O_ORDERDATE) AS year, SUM(O_TOTALPRICE) AS total_salesFROM ORDERSGROUP BY ROLLUP(YEAR(O_ORDERDATE));
+
+2. Roll-up by year and month
+
+
+SELECT 
+  YEAR(O_ORDERDATE) AS year,
+  MONTH(O_ORDERDATE) AS month,
+  SUM(O_TOTALPRICE) AS total_salesFROM ORDERSGROUP BY ROLLUP(YEAR(O_ORDERDATE), MONTH(O_ORDERDATE));
+
+3. Roll-up by clerk and priority
+
+
+SELECT 
+  O_CLERK,
+  O_ORDERPRIORITY,
+  SUM(O_TOTALPRICE) AS total_salesFROM ORDERSGROUP BY ROLLUP(O_CLERK, O_ORDERPRIORITY);
+
+🔍 DRILL-DOWN Queries
+Drill-down gives more detail — e.g., from year → month → day.
+4. Drill down from year to month
+
+
+SELECT 
+  YEAR(O_ORDERDATE) AS year,
+  MONTH(O_ORDERDATE) AS month,
+  SUM(O_TOTALPRICE) AS total_salesFROM ORDERSGROUP BY year, monthORDER BY year, month;
+
+5. Drill down by customer and date
+
+
+SELECT 
+  O_CUSTKEY,
+  O_ORDERDATE,
+  SUM(O_TOTALPRICE) AS daily_salesFROM ORDERSGROUP BY O_CUSTKEY, O_ORDERDATEORDER BY O_CUSTKEY, O_ORDERDATE;
+
+6. Drill down from order priority to order clerk
+
+
+SELECT 
+  O_ORDERPRIORITY,
+  O_CLERK,
+  COUNT(*) AS num_ordersFROM ORDERSGROUP BY O_ORDERPRIORITY, O_CLERKORDER BY O_ORDERPRIORITY, O_CLERK;
+
+🔪 SLICE Queries
+Slice filters the data to focus on a single value in one dimension.
+
+7. Slice where order priority is '1-URGENT'
+
+
+SELECT *FROM ORDERSWHERE O_ORDERPRIORITY = '1-URGENT';
+
+8. Slice orders from 2024 only
+
+
+SELECT *FROM ORDERSWHERE YEAR(O_ORDERDATE) = 2024;
+
+9. Slice orders handled by a specific clerk
+
+
+SELECT *FROM ORDERSWHERE O_CLERK = 'Clerk#000000121';
+
+🎲 DICE Queries
+Dice selects data using multiple conditions (filters on more than one dimension).
+10. Dice orders in 2024 with ‘HIGH’ or ‘URGENT’ priority
+
+
+SELECT *FROM ORDERSWHERE YEAR(O_ORDERDATE) = 2024 
+  AND O_ORDERPRIORITY IN ('1-URGENT', '2-HIGH');
+
+11. Dice orders over $100,000 with priority ‘1-URGENT’
+
+
+SELECT *FROM ORDERSWHERE O_TOTALPRICE > 100000 
+  AND O_ORDERPRIORITY = '1-URGENT';
+
+12. Dice orders by Clerk#000000121 in March 2024
+
+
+SELECT *FROM ORDERSWHERE O_CLERK = 'Clerk#000000121'
+  AND O_ORDERDATE BETWEEN '2024-03-01' AND '2024-03-31';
+
+
+PIVOT QUERIES
+
+13. Pivot total orders by priority per year
+
+SELECT *
+FROM (
+  SELECT O_SHIPPRIORITY, O_ORDERPRIORITY
+  FROM ORDERS
+)
+PIVOT (
+  COUNT(O_ORDERPRIORITY) 
+  FOR O_ORDERPRIORITY IN ('1-URGENT', '2-HIGH', '3-MEDIUM')
+);
+
+14. Pivot total sales by order status
+
+SELECT *
+FROM (
+  SELECT O_ORDERSTATUS, O_ORDERDATE, O_TOTALPRICE
+  FROM ORDERS
+)
+PIVOT (
+  SUM(O_TOTALPRICE) FOR O_ORDERSTATUS IN ('O', 'F', 'P')
+)
+ORDER BY O_ORDERDATE;
+
+
+
